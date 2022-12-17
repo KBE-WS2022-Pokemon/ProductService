@@ -8,34 +8,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
-@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
     private IProductService productService;
 
-    @GetMapping
+    @GetMapping("/")
+    public String hello() {
+        return "Hello World!";
+    }
+
+    @GetMapping("/product")
     public Iterable<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Product getProduct(@PathVariable UUID id) throws ProductNotFoundException {
+    public @ResponseBody Product getProduct(@PathVariable Long id) throws ProductNotFoundException {
         return productService.getProduct(id);
     }
 
-    @PostMapping
+    @PostMapping("/product")
     @ResponseStatus(HttpStatus.CREATED)
     public Product createProduct(@RequestBody Product product) {
         return productService.save(product);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return new ResponseEntity<String>("Product deleted successfully", HttpStatus.OK);
     }

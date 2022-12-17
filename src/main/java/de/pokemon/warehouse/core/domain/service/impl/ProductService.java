@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
 @Transactional
 public class ProductService implements IProductService {
@@ -26,7 +23,7 @@ public class ProductService implements IProductService {
 
     //public Optional<Product> getProductById(UUID id) throws ProductNotFoundException {Optional<Product> savedProduct = productRepository.findById(id);}
 
-    public Product getProduct(UUID id) throws ProductNotFoundException {
+    public Product getProduct(Long id) throws ProductNotFoundException {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(String.format("Product %s not found.", id)));
     }
@@ -37,7 +34,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteProduct(UUID id) {
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
 }

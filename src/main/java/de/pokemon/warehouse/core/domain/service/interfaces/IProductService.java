@@ -4,16 +4,13 @@ import de.pokemon.warehouse.core.domain.model.Product;
 import de.pokemon.warehouse.port.product.exception.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
 public interface IProductService {
     Iterable<Product> getAllProducts();
 
-    Product getProduct(UUID id) throws ProductNotFoundException;
+    Product getProduct(Long id) throws ProductNotFoundException;
 
     Product save(Product product);
 
-    void deleteProduct(UUID id);
+    void deleteProduct(Long id);
 }
