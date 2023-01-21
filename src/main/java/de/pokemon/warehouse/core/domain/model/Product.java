@@ -42,5 +42,5 @@ public class Product implements Serializable {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
     */
-    //private String imageUrl
+    private String imageUrl;
 }
