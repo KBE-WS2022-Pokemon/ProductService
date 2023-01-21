@@ -3,6 +3,9 @@
 Simple API prototype 
 
 # Setup
+
+for MAC:
+
     docker network create backend
     
     mvn clean package -DskipTests

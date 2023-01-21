@@ -1,4 +1,3 @@
-CMD sleep 5
 FROM maven:3-openjdk-17 AS MAVEN_ENV
 
 EXPOSE 8084
