@@ -1,6 +1,7 @@
 package de.pokemon.warehouse.port.rabbit;
 
 import de.pokemon.warehouse.core.domain.model.Product;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,10 +21,10 @@ public class RabbitController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
+    @RabbitListener(queues = { "$(queue.product.name)"})
     public void produceWithProduct(Product product) {
 
         rabbitTemplate.setExchange(exchange);
-        //rabbitTemplate.send(product);
 
     }
 }
