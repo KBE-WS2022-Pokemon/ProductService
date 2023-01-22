@@ -1,6 +1,8 @@
 package de.pokemon.warehouse.port.product;
 
+import de.pokemon.warehouse.core.domain.model.CartProductDto;
 import de.pokemon.warehouse.core.domain.model.Product;
+import de.pokemon.warehouse.core.domain.service.interfaces.IProductConverter;
 import de.pokemon.warehouse.core.domain.service.interfaces.IProductService;
 import de.pokemon.warehouse.core.domain.service.interfaces.IRabbitMQService;
 import de.pokemon.warehouse.port.product.exception.ProductNotFoundException;
@@ -19,6 +21,9 @@ public class ProductRestController {
 
     @Autowired
     private IRabbitMQService rabbitMQService;
+
+    @Autowired
+    private IProductConverter productConverter;
 
     @GetMapping("/")
     public String hello() {
@@ -45,13 +50,15 @@ public class ProductRestController {
     @DeleteMapping("/product/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return new ResponseEntity<String>("Product deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable Long id) {
-        //TODO: send rabbit msg with cart-dto to cart service
-        return new ResponseEntity<String>("Product added to Cart", HttpStatus.OK);
+    public ResponseEntity<String> addToCart(@PathVariable Long id) throws ProductNotFoundException {
+        Product productToConvert = productService.getProduct(id);
+        CartProductDto productToSend = productConverter.convert(productToConvert);
+        rabbitMQService.sendProductToCart(productToSend);
+        return new ResponseEntity<>("Product added to Cart", HttpStatus.OK);
     }
 
 }

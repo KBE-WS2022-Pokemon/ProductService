@@ -21,9 +21,8 @@ public class RabbitController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RabbitListener(queues = { "$(queue.product.name)"})
-    public void produceWithProduct(Product product) {
-
+    @RabbitListener(queues = { "$(product.queue.name)"})
+    public void consume(Product product) {
         rabbitTemplate.setExchange(exchange);
 
     }
