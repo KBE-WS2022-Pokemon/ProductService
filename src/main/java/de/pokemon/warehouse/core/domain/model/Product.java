@@ -1,10 +1,10 @@
 package de.pokemon.warehouse.core.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -12,17 +12,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+
 @Entity
+@Data
+@NoArgsConstructor
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uuid;
-
+    @Column(name = "id")
+    @JdbcTypeCode(SqlTypes.UUID)
+    private UUID uuid;
 
     //@NotNull(message = "Product name is required")
     @Basic(optional = false)
@@ -37,6 +36,15 @@ public class Product implements Serializable {
 
     private int inStorage;
 
+    public Product(String name, Double price, Double amount, String description, int inStorage) {
+        this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+        this.description = description;
+        this.inStorage = inStorage;
+    }
+
     /**
     @CreatedDate
     private LocalDateTime createdDate;
@@ -44,4 +52,5 @@ public class Product implements Serializable {
     private LocalDateTime lastModifiedDate;
     */
     // private String imageUrl;
+
 }

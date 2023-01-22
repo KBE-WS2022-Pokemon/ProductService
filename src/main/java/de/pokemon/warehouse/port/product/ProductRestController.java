@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = {"https://localhost:3000/"})
 @RequestMapping("/api")
@@ -37,7 +39,7 @@ public class ProductRestController {
 
     @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Product getProduct(@PathVariable Long id) throws ProductNotFoundException {
+    public @ResponseBody Product getProduct(@PathVariable UUID id) throws ProductNotFoundException {
         return productService.getProduct(id);
     }
 
@@ -48,13 +50,13 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
         return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable Long id) throws ProductNotFoundException {
+    public ResponseEntity<String> addToCart(@PathVariable UUID id) throws ProductNotFoundException {
         Product productToConvert = productService.getProduct(id);
         CartProductDto productToSend = productConverter.convert(productToConvert);
         rabbitMQService.sendProductToCart(productToSend);
