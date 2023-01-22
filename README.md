@@ -6,6 +6,12 @@ Simple API prototype
 
 for MAC:
 
+
+
+    
+    docker stop warehouse
+    docker rm warehouse
+
     docker network create backend
     
     mvn clean package -DskipTests

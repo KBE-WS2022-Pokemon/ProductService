@@ -6,12 +6,17 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RabbitMQService implements IRabbitMQService {
 
-    @Value("$(topic.exchange")
+    @Value("${topic.exchange}")
     private String exchange;
+    @Value("${product.queue.key}")
+    private String routingKey;
     private final RabbitTemplate rabbitTemplate;
+
 
     @Autowired
     public RabbitMQService(RabbitTemplate rabbitTemplate) {
@@ -21,6 +26,6 @@ public class RabbitMQService implements IRabbitMQService {
 
     @Override
     public void sendProductToCart(CartProductDto dto) {
-        rabbitTemplate.convertAndSend("Hello, Cart Service!");
+        rabbitTemplate.convertAndSend(exchange, routingKey, dto);
     }
 }

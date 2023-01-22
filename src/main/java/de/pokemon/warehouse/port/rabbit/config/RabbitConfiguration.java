@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
 
-    @Value("$(product.queue.name)")
+    @Value("${product.queue.name}")
     private String productQueue;
 
-    @Value("$(topic.exchange)")
+    @Value("${topic.exchange}")
     private String exchange;
 
-    @Value("$(product.queue.key)")
+    @Value("${product.queue.key}")
     private String productRoutingKey;
 
     @Bean
@@ -36,7 +36,6 @@ public class RabbitConfiguration {
                 .to(getExchange())
                 .with(productRoutingKey);
     }
-
 
 
 }
