@@ -43,5 +43,10 @@ public class ProductController {
         return new ResponseEntity<String>("Product deleted successfully", HttpStatus.OK);
     }
 
+    @GetMapping("/product/cart/{id}")
+    public ResponseEntity<String> addToCart(@PathVariable Long id) {
+        //TODO: send rabbit msg with cart-dto to cart service
+        return new ResponseEntity<String>("Product added to Cart", HttpStatus.OK);
+    }
 
 }
