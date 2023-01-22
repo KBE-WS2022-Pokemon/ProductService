@@ -55,10 +55,10 @@ public class ProductRestController {
         return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable UUID id) throws ProductNotFoundException {
+    @PostMapping("/product/cart/{id}")
+    public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody int amountBought) throws ProductNotFoundException {
         Product productToConvert = productService.getProduct(id);
-        CartProductDto productToSend = productConverter.convert(productToConvert);
+        CartProductDto productToSend = productConverter.convert(productToConvert, amountBought);
         rabbitMQService.sendProductToCart(productToSend);
         return new ResponseEntity<>("Product added to Cart", HttpStatus.OK);
     }

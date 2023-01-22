@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductConverter implements IProductConverter {
     @Override
-    public CartProductDto convert(Product product) {
+    public CartProductDto convert(Product product, int amountBought) {
         try {
             CartProductDto convertedProduct = new CartProductDto(
                     product.getUuid(),
                     product.getName(),
                     product.getPrice(),
-                    product.getAmount()
+                    amountBought
             );
             return convertedProduct;
         } catch (NullPointerException ex) {

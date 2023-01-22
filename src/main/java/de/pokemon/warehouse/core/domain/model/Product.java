@@ -36,13 +36,14 @@ public class Product implements Serializable {
 
     private int inStorage;
 
-    public Product(String name, Double price, Double amount, String description, int inStorage) {
+    public Product(String name, Double price, Double amount, String description, int inStorage, String imageUrl) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.price = price;
         this.amount = amount;
         this.description = description;
         this.inStorage = inStorage;
+        this.imageUrl = imageUrl;
     }
 
     /**
@@ -51,6 +52,6 @@ public class Product implements Serializable {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
     */
-    // private String imageUrl;
+    private String imageUrl;
 
 }
