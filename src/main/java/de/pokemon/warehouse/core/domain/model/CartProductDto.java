@@ -16,6 +16,6 @@ public class CartProductDto implements Serializable {
     @NonNull
     private double price;
     @NonNull
-    private double amount;
+    private int amount;
 
 }
