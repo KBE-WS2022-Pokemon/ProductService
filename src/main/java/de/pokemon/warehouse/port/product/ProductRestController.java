@@ -57,6 +57,10 @@ public class ProductRestController {
 
     @PostMapping("/product/cart/{id}")
     public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody int amountBought) throws ProductNotFoundException {
+        if(amountBought > productService.getProduct(id).getInStorage()) {
+            return new ResponseEntity<>("False", HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
         Product productToConvert = productService.getProduct(id);
         CartProductDto productToSend = productConverter.convert(productToConvert, amountBought);
         rabbitMQService.sendProductToCart(productToSend);
