@@ -2,6 +2,7 @@ package de.pokemon.warehouse.port.product;
 
 import de.pokemon.warehouse.core.domain.model.Product;
 import de.pokemon.warehouse.core.domain.service.interfaces.IProductService;
+import de.pokemon.warehouse.core.domain.service.interfaces.IRabbitMQService;
 import de.pokemon.warehouse.port.product.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,14 +11,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:3000/"})
-public class ProductController {
+@RequestMapping("/api")
+public class ProductRestController {
 
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private IRabbitMQService rabbitMQService;
+
     @GetMapping("/")
     public String hello() {
-        return "Hello World!";
+        return "Hello World, I'm an API!";
     }
 
     @GetMapping("/product")
@@ -43,5 +48,10 @@ public class ProductController {
         return new ResponseEntity<String>("Product deleted successfully", HttpStatus.OK);
     }
 
+    @GetMapping("/product/cart/{id}")
+    public ResponseEntity<String> addToCart(@PathVariable Long id) {
+        //TODO: send rabbit msg with cart-dto to cart service
+        return new ResponseEntity<String>("Product added to Cart", HttpStatus.OK);
+    }
 
 }
