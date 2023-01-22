@@ -39,4 +39,17 @@ public class ProductService implements IProductService {
     public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public Product updateProductAmountInStorage(UUID productId, int amountToReduce) throws ProductNotFoundException {
+        Product productToUpdate = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(String.format("Product %s not found.", productId)));
+        int newAmount = productToUpdate.getInStorage() - amountToReduce;
+        if(newAmount<0) {
+            //throwCustomException
+        }
+        productToUpdate.setInStorage(newAmount);
+        return productRepository.save(productToUpdate);
+    }
+
 }
