@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IProductConverter {
 
-    CartProductDto convert(Product product);
+    CartProductDto convert(Product product, int amountBought);
 }
