@@ -15,4 +15,6 @@ public interface IProductService {
     Product save(Product product);
 
     void deleteProduct(UUID id);
+
+    Product updateProductAmountInStorage(UUID productID, int amountToReduce) throws ProductNotFoundException;
 }

@@ -12,19 +12,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
 
-    @Value("${product.queue.name}")
-    private String productQueue;
-
     @Value("${topic.exchange}")
     private String exchange;
-
+    @Value("${product.queue.name}")
+    private String productQueue;
     @Value("${product.queue.key}")
     private String productRoutingKey;
+
+    @Value("${warehouse.queue.name}")
+    private String warehouseQueue;
+    @Value("${warehouse.queue.key}")
+    private String warehouseRoutingKey;
+
 
     @Bean
     public Queue createProductQueue() {
         return new Queue(productQueue);
     }
+
+    @Bean
+    public Queue createWarehouseQueue() { return new Queue(warehouseQueue); }
 
     @Bean
     public TopicExchange getExchange() { return new TopicExchange(exchange); }
@@ -36,6 +43,5 @@ public class RabbitConfiguration {
                 .to(getExchange())
                 .with(productRoutingKey);
     }
-
 
 }

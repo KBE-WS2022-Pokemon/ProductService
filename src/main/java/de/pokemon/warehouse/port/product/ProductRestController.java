@@ -62,7 +62,7 @@ public class ProductRestController {
         }
 
         Product productToConvert = productService.getProduct(id);
-        CartProductDto productToSend = productConverter.convert(productToConvert, amountBought);
+        CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought);
         rabbitMQService.sendProductToCart(productToSend);
         return new ResponseEntity<>("Product added to Cart", HttpStatus.OK);
     }

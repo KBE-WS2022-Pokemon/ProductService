@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductConverter implements IProductConverter {
     @Override
-    public CartProductDto convert(Product product, int amountBought) {
+    public CartProductDto convertToCart(Product product, int amountBought) {
         try {
             CartProductDto convertedProduct = new CartProductDto(
                     product.getUuid(),
