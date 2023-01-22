@@ -23,7 +23,6 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uuid;
 
-
     //@NotNull(message = "Product name is required")
     @Basic(optional = false)
     private String name;
