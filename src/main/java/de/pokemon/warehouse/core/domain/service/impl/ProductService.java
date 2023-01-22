@@ -2,7 +2,7 @@ package de.pokemon.warehouse.core.domain.service.impl;
 
 import de.pokemon.warehouse.core.domain.model.Product;
 import de.pokemon.warehouse.core.domain.service.interfaces.IProductService;
-import de.pokemon.warehouse.core.domain.service.interfaces.IProductRepository;
+import de.pokemon.warehouse.core.domain.service.interfaces.ProductRepository;
 import de.pokemon.warehouse.port.product.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService implements IProductService {
 
     @Autowired
-    IProductRepository productRepository;
+    ProductRepository productRepository;
 
     @Override
     public Iterable<Product> getAllProducts() {

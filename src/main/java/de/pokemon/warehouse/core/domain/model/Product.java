@@ -23,7 +23,6 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uuid;
 
-
     //@NotNull(message = "Product name is required")
     @Basic(optional = false)
     private String name;
@@ -37,11 +36,13 @@ public class Product implements Serializable {
 
     private int inStorage;
 
+    private String image;
+
     /**
     @CreatedDate
     private LocalDateTime createdDate;
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
     */
-    // private String imageUrl;
+    //private String imageUrl
 }

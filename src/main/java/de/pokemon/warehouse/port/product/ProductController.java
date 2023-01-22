@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:3000/"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class ProductController {
 
     @Autowired
@@ -43,10 +43,5 @@ public class ProductController {
         return new ResponseEntity<String>("Product deleted successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable Long id) {
-        //TODO: send rabbit msg with cart-dto to cart service
-        return new ResponseEntity<String>("Product added to Cart", HttpStatus.OK);
-    }
 
 }
