@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.pokemon</groupId>
-	<artifactId>product-service</artifactId>
+	<artifactId>warehouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Product Service</name>
+	<name>warehouse</name>
 	<description>Simple Warehouse Prototype</description>
 	<properties>
 		<java.version>17</java.version>
