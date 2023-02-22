@@ -4,9 +4,9 @@ Simple API prototype
 
 # Setup
 
-docker network create backend
-mvn clean package -DskipTests
-docker-compose up -d
+    docker network create backend
+    mvn clean package -DskipTests
+    docker-compose up -d
 
 
 for MAC:
