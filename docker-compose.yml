@@ -1,28 +1,29 @@
-version: '3.3'
+version: '3.9'
 
 services:
-  warehouse-db:
+  product-db:
+    container_name: product-db
     image: postgres:13-alpine
     ports:
       - '5432:5432'
     networks:
       - backend
     environment:
-      POSTGRES_DB: db-warehouse
+      POSTGRES_DB: product-db
       POSTGRES_PASSWORD: 123456
-  warehouse:
-    container_name: warehouse
+  product-service:
+    container_name: product-service
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./.docker/Dockerfile
     networks:
       - backend
       - database
     ports:
-      - '8080:8084'
+      - '8084:8084'
     # restart: on-failure
-    #depends_on:
-    #  - warehouse-db
+    depends_on:
+      - product-db
 
 
 

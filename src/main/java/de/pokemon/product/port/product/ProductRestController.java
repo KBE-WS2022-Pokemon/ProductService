@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:3000/"})
 @RequestMapping("/api")
 public class ProductRestController {
 
@@ -56,15 +56,20 @@ public class ProductRestController {
     }
 
     @PostMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody int amountBought) throws ProductNotFoundException {
+    public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody Map<String, String> input) throws ProductNotFoundException {
+        int amountBought = Integer.parseInt(input.get("amountBought"));
+
+        if(amountBought == 0) {
+            return new ResponseEntity<>("False Input", HttpStatus.BAD_REQUEST);
+        }
         if(amountBought > productService.getProduct(id).getInStorage()) {
-            return new ResponseEntity<>("False", HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>("Products sold out", HttpStatus.METHOD_NOT_ALLOWED);
         }
 
         Product productToConvert = productService.getProduct(id);
         CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought);
         rabbitMQService.sendProductToCart(productToSend);
-        return new ResponseEntity<>("Product added to Cart", HttpStatus.OK);
+        return new ResponseEntity<>("Product " + productToSend.getName() + " with ID: " + productToSend.getUuid() +" added to Cart", HttpStatus.OK);
     }
 
 }
