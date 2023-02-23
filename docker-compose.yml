@@ -26,7 +26,6 @@ services:
       - product-db
 
 
-
 # Names our volume
 volumes:
   wh-db:
