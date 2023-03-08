@@ -4,6 +4,17 @@ Simple API prototype
 
 # Setup
 
+Make sure no old images exist
+Make sure RabbitMQ is running with the docker-compose from "Main" repository
+Delete old .jar files in ./target if they exist
+
+```shell
+    mvn package
+    docker-compose up -d
+```
+
+# Old Setup
+
     docker network create backend
     mvn clean package -DskipTests
     docker-compose up -d
