@@ -5,11 +5,12 @@ services:
     container_name: product-db
     image: postgres:13-alpine
     ports:
-      - '5431:5431'
+      - '5433:5433'
     networks:
       - backend
     environment:
       POSTGRES_DB: product-db
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
   product-service:
     container_name: product-service
