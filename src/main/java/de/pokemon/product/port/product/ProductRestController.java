@@ -73,4 +73,9 @@ public class ProductRestController {
         return new ResponseEntity<>("Product " + productToSend.getName() + " with ID: " + productToSend.getUuid() +" added to Cart", HttpStatus.OK);
     }
 
+    @GetMapping("/product/user")
+    public ResponseEntity<String> getUserFromProduct(Principal principal) {
+        return new ResponseEntity<String>("User name: " + principal, HttpStatus.OK);
+    }
+
 }
