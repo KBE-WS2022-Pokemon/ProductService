@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,7 +57,7 @@ public class ProductRestController {
     }
 
     @PostMapping("/product/cart/{id}")
-    public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody Map<String, String> input) throws ProductNotFoundException {
+    public ResponseEntity<String> addToCart(@PathVariable UUID id, @RequestBody Map<String, String> input, Principal principal) throws ProductNotFoundException {
         int amountBought = Integer.parseInt(input.get("amountBought"));
 
         if(amountBought == 0) {
@@ -67,7 +68,7 @@ public class ProductRestController {
         }
 
         Product productToConvert = productService.getProduct(id);
-        CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought);
+        CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought, principal);
         rabbitMQService.sendProductToCart(productToSend);
         return new ResponseEntity<>("Product " + productToSend.getName() + " with ID: " + productToSend.getUuid() +" added to Cart", HttpStatus.OK);
     }
