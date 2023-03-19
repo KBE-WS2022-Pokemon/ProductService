@@ -13,6 +13,15 @@ Simple API prototype
     docker-compose up -d
 ```
 
+```shell
+    docker stop product-service
+    docker rm product-service
+    docker image rm productservice-product-service@latest
+    rm -r ./target
+    mvn package
+    docker-compose up -d
+```
+
 # Old Setup
 
     docker network create backend

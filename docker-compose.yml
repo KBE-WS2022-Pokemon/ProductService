@@ -22,7 +22,7 @@ services:
       - backend
       - database
     ports:
-      - '8084:8084'
+      - '8091:8091'
     # restart: on-failure
     depends_on:
       - product-db
