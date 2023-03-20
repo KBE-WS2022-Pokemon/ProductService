@@ -13,9 +13,9 @@ public class CartProductDto implements Serializable {
     @NonNull
     private UUID uuid;
     @NonNull
-    private String user;
+    private String userName;
     @NonNull
-    private String name;
+    private String itemName;
     @NonNull
     private double price;
     @NonNull

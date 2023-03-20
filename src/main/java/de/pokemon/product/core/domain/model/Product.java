@@ -19,7 +19,6 @@ public class Product implements Serializable {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID uuid;
 
-    //@NotNull(message = "Product name is required")
     @Basic(optional = false)
     private String name;
 

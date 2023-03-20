@@ -9,5 +9,5 @@ import java.security.Principal;
 @Service
 public interface IProductConverter {
 
-    CartProductDto convertToCart(Product product, int amountBought, Principal principal);
+    CartProductDto convertToCart(Product product, int amountBought, String userName);
 }

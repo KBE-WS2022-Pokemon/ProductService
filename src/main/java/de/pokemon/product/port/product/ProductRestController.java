@@ -66,11 +66,14 @@ public class ProductRestController {
         if(amountBought > productService.getProduct(id).getInStorage()) {
             return new ResponseEntity<>("Products sold out", HttpStatus.METHOD_NOT_ALLOWED);
         }
+        if(principal.getName() == null) {
+            return new ResponseEntity<>("Couldn't retrieve user", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
 
         Product productToConvert = productService.getProduct(id);
-        CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought, principal);
+        CartProductDto productToSend = productConverter.convertToCart(productToConvert, amountBought, principal.getName());
         rabbitMQService.sendProductToCart(productToSend);
-        return new ResponseEntity<>("Product " + productToSend.getName() + " with ID: " + productToSend.getUuid() +" added to Cart", HttpStatus.OK);
+        return new ResponseEntity<>("Product " + productToSend.getItemName() + " with ID: " + productToSend.getUuid() +" added to Cart", HttpStatus.OK);
     }
 
     @GetMapping("/product/user")

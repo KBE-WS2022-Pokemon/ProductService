@@ -12,20 +12,15 @@ import java.security.Principal;
 public class ProductConverter implements IProductConverter {
 
     @Override
-    public CartProductDto convertToCart(Product product, int amountBought, Principal principal) {
-        try {
-            CartProductDto convertedProduct = new CartProductDto(
-                    product.getUuid(),
-                    principal.getName(),
-                    product.getName(),
-                    product.getPrice(),
-                    amountBought
-            );
-            return convertedProduct;
-        } catch (NullPointerException ex) {
-            //Product is empty or contains empty field
-            return null;
-        }
+    public CartProductDto convertToCart(Product product, int amountBought, String userName) throws NullPointerException{
 
+        CartProductDto convertedProduct = new CartProductDto(
+                product.getUuid(),
+                userName,
+                product.getName(),
+                product.getPrice(),
+                amountBought
+        );
+        return convertedProduct;
     }
 }
