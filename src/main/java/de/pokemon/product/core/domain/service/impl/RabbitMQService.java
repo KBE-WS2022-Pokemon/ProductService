@@ -16,7 +16,6 @@ public class RabbitMQService implements IRabbitMQService {
     private String routingKey;
     private final RabbitTemplate rabbitTemplate;
 
-
     @Autowired
     public RabbitMQService(RabbitTemplate rabbitTemplate) {
         super();
