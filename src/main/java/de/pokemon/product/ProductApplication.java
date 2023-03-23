@@ -2,12 +2,19 @@ package de.pokemon.product;
 
 import de.pokemon.product.core.domain.model.Product;
 import de.pokemon.product.core.domain.service.interfaces.IProductService;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+
+import java.util.List;
 
 @EntityScan(basePackageClasses = {Product.class})
 @ComponentScan(basePackages = {"de.pokemon.product.core.domain"})
@@ -18,6 +25,27 @@ public class ProductApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProductApplication.class, args);
 	}
+	/**
+	@Bean
+	public OpenAPI myOpenAPI() {
+		Contact contact = new Contact();
+		contact.setName("KBE");
+		contact.setUrl("https://github.com/KBE-WS2022-Pokemon/");
+
+		Server localServer = new Server();
+		localServer.setUrl("http://localhost:8091");
+		localServer.setDescription("Server URL in Local environment");
+
+		Info info = new Info()
+				.title("ProductService API")
+				.contact(contact)
+				.version("1.0")
+				.description("This API exposes endpoints for the frontend to get Product Information.");
+
+		return new OpenAPI()
+				.info(info)
+				.servers(List.of(localServer));
+	}*/
 
 	@Bean
 	CommandLineRunner runner(IProductService productService) {
